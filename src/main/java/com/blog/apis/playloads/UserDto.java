@@ -1,9 +1,13 @@
 package com.blog.apis.playloads;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.validator.constraints.Length;
+
+import com.blog.apis.Enitys.Roles;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -32,6 +36,10 @@ public class UserDto {
 	private String email;
 	
 	List<PostDto> posts ;
+	
+	
+	private Set<Roles>  roles = new HashSet<>();
+	
 	
 	
 

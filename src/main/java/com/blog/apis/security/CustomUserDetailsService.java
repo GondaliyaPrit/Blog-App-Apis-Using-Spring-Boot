@@ -1,6 +1,7 @@
 package com.blog.apis.security;
 
 import com.blog.apis.Enitys.User;
+import com.blog.apis.exaptions.ApiBadCredexaption;
 import com.blog.apis.exaptions.ResourcenotfoundExaption;
 import com.blog.apis.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class CustomUserDetailsService  implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException , ApiBadCredexaption {
         User useremail = this.userRepo.findByEmail(username).orElseThrow(() -> new ResourcenotfoundExaption("User", "Email " + username, 0));
         return useremail;
     }

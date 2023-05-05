@@ -9,6 +9,6 @@ import lombok.Data;
 @Data
 public class JwtResponce {
 
-    private String Token;
-    private Date ValidTill;
+    private String token;
+    private Date validtill;
 }

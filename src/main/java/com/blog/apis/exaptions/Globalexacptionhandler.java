@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,6 +20,15 @@ public class Globalexacptionhandler {
 
 	@ExceptionHandler(ResourcenotfoundExaption.class)
 	   public ResponseEntity<Apiresponce> resporcenotfoundexaption(ResourcenotfoundExaption exaption)
+	   {
+			String msg =exaption.getMessage();
+			Apiresponce apiresponce = new Apiresponce(msg,true);
+			return new ResponseEntity<Apiresponce>(apiresponce,HttpStatus.NOT_FOUND);
+	   }
+	
+	
+	@ExceptionHandler(BadCredentialsException.class)
+	   public ResponseEntity<Apiresponce> Apibadcredexaption (BadCredentialsException exaption)
 	   {
 			String msg =exaption.getMessage();
 			Apiresponce apiresponce = new Apiresponce(msg,true);
