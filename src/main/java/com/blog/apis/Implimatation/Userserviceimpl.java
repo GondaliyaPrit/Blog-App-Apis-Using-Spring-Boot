@@ -38,7 +38,7 @@ public class Userserviceimpl implements UserServices {
         User userdata = this.modelMapper.map(userdto, User.class);
         //encode password
         userdata.setPassword(this.encoder.encode(userdata.getPassword()));
-        Roles roles = this.rolerepo.findById(Constantdata.NORMAL_USER).get();
+        Roles roles = this.rolerepo.findById(Constantdata.NORMAL_USER).orElse(null);
         userdata.getRoles().add(roles);
         User newuser = this.repo.save(userdata);
 
@@ -67,6 +67,7 @@ public class Userserviceimpl implements UserServices {
         UserDto userDto2 = this.usertodto(updateuser);
         return userDto2;
     }
+
 
     @Override
     public UserDto Getuserbyid(Integer userid) {

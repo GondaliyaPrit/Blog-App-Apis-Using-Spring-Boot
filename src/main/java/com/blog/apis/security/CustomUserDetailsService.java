@@ -1,10 +1,10 @@
 package com.blog.apis.security;
 
 import com.blog.apis.Enitys.User;
-import com.blog.apis.exaptions.ApiBadCredexaption;
 import com.blog.apis.exaptions.ResourcenotfoundExaption;
 import com.blog.apis.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,8 +18,8 @@ public class CustomUserDetailsService  implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException , ApiBadCredexaption {
-        User useremail = this.userRepo.findByEmail(username).orElseThrow(() -> new ResourcenotfoundExaption("User", "Email " + username, 0));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException  {
+        User useremail = this.userRepo.findByEmail(username).orElseThrow(() -> new BadCredentialsException("Invalid Username And Password"));
         return useremail;
     }
 }

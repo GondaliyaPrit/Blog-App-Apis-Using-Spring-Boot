@@ -1,9 +1,11 @@
 package com.blog.apis.exaptions;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.blog.apis.utils.Responcehandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,19 +24,23 @@ public class Globalexacptionhandler {
 	   public ResponseEntity<Apiresponce> resporcenotfoundexaption(ResourcenotfoundExaption exaption)
 	   {
 			String msg =exaption.getMessage();
-			Apiresponce apiresponce = new Apiresponce(msg,true);
+			Apiresponce apiresponce = new Apiresponce(msg,false);
 			return new ResponseEntity<Apiresponce>(apiresponce,HttpStatus.NOT_FOUND);
 	   }
 	
 	
 	@ExceptionHandler(BadCredentialsException.class)
-	   public ResponseEntity<Apiresponce> Apibadcredexaption (BadCredentialsException exaption)
+	   public ResponseEntity<Object> Apibadcredexaption (BadCredentialsException exaption)
 	   {
-			String msg =exaption.getMessage();
-			Apiresponce apiresponce = new Apiresponce(msg,true);
-			return new ResponseEntity<Apiresponce>(apiresponce,HttpStatus.NOT_FOUND);
+			return  Responcehandler.generateResponse("Invalid Username Or Password ! Try Again...",HttpStatus.BAD_REQUEST,null);
 	   }
-	 
+
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	public ResponseEntity<Object> Samedatafound(SQLIntegrityConstraintViolationException exaption)
+	{
+		String msg = exaption.getMessage();
+		return  Responcehandler.generateResponse(msg,HttpStatus.BAD_REQUEST,null);
+	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String,String>>methodnotvalidexaption(MethodArgumentNotValidException ex)

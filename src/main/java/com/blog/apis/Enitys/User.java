@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name="users" , uniqueConstraints = {
-        @UniqueConstraint(columnNames = "Username"),
         @UniqueConstraint(columnNames = "email")
     })
 @NoArgsConstructor

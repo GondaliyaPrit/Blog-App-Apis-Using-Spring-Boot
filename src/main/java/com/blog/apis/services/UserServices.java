@@ -10,6 +10,8 @@ public interface UserServices {
 
 	UserDto SignUp(UserDto user);
 
+
+
 	UserDto Createuser(UserDto user);
 
 	UserDto Updateuser(UserDto userdto, Integer Userid);

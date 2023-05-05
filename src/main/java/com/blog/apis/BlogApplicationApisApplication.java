@@ -70,8 +70,7 @@ public class BlogApplicationApisApplication implements  CommandLineRunner {
 		list.add(role);
 		list.add(role1);
 
-
-
+		this.roleRepo.saveAll(list);
 		for (Roles r:
 				list) {
 			System.out.println(r.getName());
